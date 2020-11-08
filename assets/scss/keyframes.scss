@@ -1,0 +1,60 @@
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes moveTop {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+@keyframes moveTopDikit {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100px);
+    }
+}
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0)
+    }
+    50% {
+        filter: drop-shadow(0 0 20px #ccc)
+    }
+    100% {
+        filter: drop-shadow(0)
+    }
+}
+@keyframes shine {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 90%;
+    }
+}
+@keyframes questionSlideTop {
+    0% {
+        bottom: 10px
+    }
+    100% {
+        bottom: 100px;
+    }
+}
+@keyframes animateQuestion {
+    0% {
+        margin-left: 1rem;
+    }
+    100% {
+        margin-left: 0;
+    }
+}
