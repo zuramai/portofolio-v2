@@ -40,7 +40,7 @@
 				<h1 class='text-white text-3xl font-bold mb-5'>What do you want to know about me?</h1>
 				<ul class="menus flex">
 					<li class='mr-10'>
-						<a href="#" class='text-xl'>About Me</a>
+						<a href="#about" class='text-xl' @click.prevent="moveTo($event,'about')">About Me</a>
 					</li>
 					<li class='mr-10'>
 						<a href="#" class='text-xl'>My Projects</a>
@@ -61,14 +61,77 @@
 			</div>
 		</div>
 	</div>
-	<div class='section' id="about">
-
+	<div class='section bg-gray-100 flex items-center' id="about">
+		<div class="container mx-auto" >
+			<div class="flex">
+				<div class="w-full md:w-1/2 text-right">
+					<transition name="slide-left">
+						<h1 class='text-6xl font-bold mb-5' v-show="show.about_me.title">About Me</h1>
+					</transition>
+					<transition name="slide-left">
+						<p v-show="show.about_me.description" class='text-lg leading-8 font-medium'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quo ipsam quam, natus dolor minus necessitatibus? Cupiditate quaerat delectus, nisi sunt aspernatur beatae quod sequi accusantium repellendus. Aliquam, facilis delectus?</p>
+					</transition>
+				</div>
+				<div class="md:w-1/2 text-center">
+					<transition name="slide-right">
+						<img src="@/assets/images/ogi.png" alt="Ahmad Saugi" class='ml-12' v-if="show.about_me.image">
+					</transition>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 </template>
 
 <script>
-export default {}
+export default {
+	mounted() {
+		window.onscroll = e => {
+			if(window.scrollY > window.innerHeight/2) {
+				// Display about me
+				console.log(e)
+				this.show.about_me.title = true;
+				this.show.about_me.image = true;
+				setTimeout(() => this.show.about_me.description = true,500)
+			}
+		}
+	},
+	data: () => ({
+		show: {
+			about_me: {
+				title: false,
+				description:false,
+				image:false
+			}
+		}
+	}),
+	methods: {
+		moveTo(event,sectionId) {
+			let offsetTop = document.querySelector(`#${sectionId}`).offsetTop
+			let frame = 0;
+			let frames = 200;
+			let start = document.body.scrollTop;
+			let distance = offsetTop - document.body.scrollTop;
+			
+			let interval = setInterval(() => {
+				let steps = frames;
+				window.scrollTo(0, this.getQuinticEase(frame, start, distance, steps))
+				frame++;
+				console.log(frame)
+				if(frame >= frames) clearInterval(interval)
+			}, 1);
+			
+		},
+		getQuinticEase(currentProgress, start, distance, steps) {
+			currentProgress /= steps/2;
+			if (currentProgress < 1) {
+				return (distance/2)*(Math.pow(currentProgress, 5)) + start;
+			}
+			currentProgress -= 2;
+			return distance/2*(Math.pow(currentProgress, 5) + 2) + start;
+		}
+	}
+}
 </script>
 
 <style>

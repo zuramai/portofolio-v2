@@ -1,4 +1,25 @@
-
+.slide-left-enter-active, .slide-left-leave-active {
+    transition: all .6s;
+}
+.slide-left-enter {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+.slide-left-enter-to {
+    transform: translateX(0);
+    opacity: 1;
+}
+.slide-right-enter-active, .slide-right-leave-active {
+    transition: all .6s;
+}
+.slide-right-enter {
+    transform: translateX(20px);
+    opacity: 0;
+}
+.slide-right-enter-to {
+    transform: translateX(0);
+    opacity: 1;
+}
 @keyframes appear {
     0% {
         opacity: 0;
