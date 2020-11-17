@@ -20,6 +20,19 @@
     transform: translateX(0);
     opacity: 1;
 }
+.slide-fade-left-enter-active,.slide-fade-left-leave-active {
+    transition: all .5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+.slide-fade-left-enter,
+.slide-fade-left-leave-to {
+    margin-left: -10px;
+    opacity: 0;
+}
+.slide-fade-left-enter-to,
+.slide-fade-left-leave {
+    margin-left: 0;
+    opacity:1
+}
 @keyframes appear {
     0% {
         opacity: 0;

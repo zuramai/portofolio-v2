@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    "@/plugins/portofolio.js"
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -32,12 +33,20 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/fontawesome',
   ],
 
   // Google Fonts Module Options
   googleFonts: {
     families: {
-      'Quicksand': true
+      'Quicksand': true,
+      'Poppins': [500,600,700],
+    }
+  },
+
+  fontawesome: {
+    icons: {
+      solid: ['faBars']
     }
   },
 

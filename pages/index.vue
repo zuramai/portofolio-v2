@@ -38,33 +38,30 @@
 			</div>
 			<div class="question text-left w-full  absolute">
 				<h1 class='text-white text-3xl font-bold mb-5'>What do you want to know about me?</h1>
-				<ul class="menus flex">
+				<ul class="menus flex md:flex-row flex-col">
 					<li class='mr-10'>
 						<a href="#about" class='text-xl' @click.prevent="moveTo($event,'about')">About Me</a>
 					</li>
 					<li class='mr-10'>
-						<a href="#" class='text-xl'>My Projects</a>
+						<a href="#projects" class='text-xl' @click.prevent="moveTo($event, 'projects')">My Projects</a>
 					</li>
 					<li class='mr-10'>
-						<a href="#" class='text-xl'>My Skills</a>
+						<a href="#skills" class='text-xl'>My Skills</a>
 					</li>
 					<li class='mr-10'>
-						<a href="#" class='text-xl'>My Experience</a>
+						<a href="#experience" class='text-xl'>My Experience</a>
 					</li>
 					<li class='mr-10'>
-						<a href="#" class='text-xl'>My Hobbies</a>
-					</li>
-					<li class='mr-10'>
-						<a href="#" class='text-xl'>My Contact</a>
+						<a href="#contact" class='text-xl'>My Contact</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class='section bg-gray-100 flex items-center' id="about">
-		<div class="container mx-auto" >
-			<div class="flex">
-				<div class="w-full md:w-1/2 text-right">
+		<div class="container mx-auto px-5" >
+			<div class="flex flex-wrap">
+				<div class="w-full order-2 md:order-1 md:w-1/2 text-center md:text-right">
 					<transition name="slide-left">
 						<h1 class='text-6xl font-bold mb-5' v-show="show.about_me.title">About Me</h1>
 					</transition>
@@ -72,10 +69,51 @@
 						<p v-show="show.about_me.description" class='text-lg leading-8 font-medium'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quo ipsam quam, natus dolor minus necessitatibus? Cupiditate quaerat delectus, nisi sunt aspernatur beatae quod sequi accusantium repellendus. Aliquam, facilis delectus?</p>
 					</transition>
 				</div>
-				<div class="md:w-1/2 text-center">
+				<div class="w-full order-1 md:order-2 md:w-1/2 text-center">
 					<transition name="slide-right">
-						<img src="@/assets/images/ogi.png" alt="Ahmad Saugi" class='ml-12' v-if="show.about_me.image">
+						<img src="@/assets/images/ogi.png" alt="Ahmad Saugi" class='md:ml-12' v-if="show.about_me.image">
 					</transition>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='section-full flex items-center py-8' :style="{background: `url(${require('@/assets/images/textures/always-grey.png')}), #6886c5`}" id="projects">
+		<div class="container mx-auto" >
+			<div class="section-header text-center text-white mb-5">
+				<h1 class="text-6xl">My Projects</h1>
+				<p>Here's my project that i have developed by myself</p>
+			</div>
+			<div class="projects">
+				<div class="flex flex-wrap">
+					<div class="w-full md:w-1/2 lg:w-1/3 px-5 h-full" v-for="(project,index) in $store.state.projects" :key="index">
+					<card :title="project.title" 
+                        :image="require(`~/assets/images/projects/${project.image}`)" 
+                        :description="project.description"
+                        :technologies="project.technologies"
+                    />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='section-full flex items-center py-8 bg-white'  id="skills">
+		<div class="container mx-auto" >
+			<div class="section-header text-center text-gray-700 mb-5">
+				<h1 class="text-6xl">Skills</h1>
+				<p>Here's my project that i have developed by myself</p>
+			</div>
+			<div class="projects">
+				<div class="flex flex-row flex-wrap">
+					<div class="w-1/2 md:w-1/4 px-2" v-for="(skill,index) in $store.state.skills" :key="index">
+						<div class="card bg-white shadow-2xl rounded-lg px-5 py-5 mb-2" >
+							<div class="d-flex flex-col text-center">
+								<i :class="skill.icon" v-if="!!skill.icon" class='text-6xl'></i>
+								<img :src="skill.icon_url" v-else :alt="skill.name" class='h-16 mx-auto'>
+								<h5 class='ml-2 text-xl mt-5 mb-2 font-medium text-gray-800'>{{skill.name}}</h5>
+								<p><span class='font-bold'>{{ skill.years }}</span> of experience.</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,12 +122,17 @@
 </template>
 
 <script>
+import Card from '~/components/Card.vue';
+
 export default {
+	components: {
+		Card,
+	},
 	mounted() {
 		window.onscroll = e => {
 			if(window.scrollY > window.innerHeight/2) {
 				// Display about me
-				console.log(e)
+				// console.log(e)
 				this.show.about_me.title = true;
 				this.show.about_me.image = true;
 				setTimeout(() => this.show.about_me.description = true,500)
@@ -106,33 +149,12 @@ export default {
 		}
 	}),
 	methods: {
-		moveTo(event,sectionId) {
-			let offsetTop = document.querySelector(`#${sectionId}`).offsetTop
-			let frame = 0;
-			let frames = 200;
-			let start = document.body.scrollTop;
-			let distance = offsetTop - document.body.scrollTop;
-			
-			let interval = setInterval(() => {
-				let steps = frames;
-				window.scrollTo(0, this.getQuinticEase(frame, start, distance, steps))
-				frame++;
-				console.log(frame)
-				if(frame >= frames) clearInterval(interval)
-			}, 1);
-			
-		},
-		getQuinticEase(currentProgress, start, distance, steps) {
-			currentProgress /= steps/2;
-			if (currentProgress < 1) {
-				return (distance/2)*(Math.pow(currentProgress, 5)) + start;
-			}
-			currentProgress -= 2;
-			return distance/2*(Math.pow(currentProgress, 5) + 2) + start;
-		}
+		
 	}
 }
 </script>
 
-<style>
+<style lang="scss">
+
+
 </style>
