@@ -13,7 +13,7 @@
     "core-js": "^3.8.3",
     "node-sass": "^5.0.0",
     "nuxt": "^2.15.3",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^11.0.1"
   },
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
