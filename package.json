@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
-    "core-js": "^3.13.1",
+    "core-js": "^3.16.2",
     "node-sass": "^5.0.0",
     "nuxt": "^2.15.8",
     "sass-loader": "^11.0.1"
